@@ -4,11 +4,12 @@
 
 ## 功能
 
-- 每隔 30 秒截取屏幕截图
-- 使用 DeepSeek AI 分析当前活动
-- 自动识别：写代码、浏览网页、看视频、阅读、聊天、游戏、工作、空闲
-- 跳过空闲/无操作状态
-- 每日活动统计报告
+- **GUI 界面** - 简洁直观
+- **开始/暂停/停止** - 完全控制
+- **实时显示** - 当前活动状态
+- **每日统计** - 时间分配一目了然
+- **API 配置** - DeepSeek Key 可配置
+- **跳过空闲** - 自动忽略无操作状态
 
 ## 安装
 
@@ -17,25 +18,37 @@ cd screen-tracker
 pip install -r requirements.txt
 ```
 
-## 配置
-
-编辑 `screen-tracker.py`，修改 DeepSeek API Key：
-
-```python
-DEEPSEEK_API_KEY = "your-api-key-here"
-```
-
 ## 运行
 
 ```bash
+# GUI 版本（推荐）
+python screen-tracker-gui.py
+
+# 命令行版本
 python screen-tracker.py
+```
+
+## 配置
+
+首次运行会提示配置 DeepSeek API Key，或点击 "⚙ API Key 配置" 按钮设置。
+
+## 打包成 Windows 应用
+
+```bash
+# 安装 PyInstaller
+pip install pyinstaller
+
+# 打包 GUI 版本（单文件，无控制台窗口）
+pyinstaller --onefile --windowed screen-tracker-gui.py
+
+# 打包后的 exe 在 dist/ 目录下
 ```
 
 ## 输出
 
 - **截图**: `~/screen-tracker/screenshots/`
 - **数据**: `~/screen-tracker/data/activity_log.json`
-- **格式**: JSON，按日期组织
+- **配置**: `screen-tracker/config.json`
 
 ## 数据示例
 
@@ -44,19 +57,14 @@ python screen-tracker.py
   "2026-02-01": [
     {
       "timestamp": "2026-02-01 15:30:00",
-      "activity": "coding",
-      "screenshot": "/home/user/screen-tracker/screenshots/screenshot_20260201_153000.png"
+      "activity": "coding"
     }
   ]
 }
 ```
 
-## 停止
+## 快捷键
 
-按 `Ctrl+C` 停止，会自动生成当日统计报告。
-
-## 自定义
-
-- 修改截图间隔：编辑 `SCREENSHOT_INTERVAL = 30`
-- 修改截图目录：编辑 `SCREENSHOT_DIR`
-- 添加新的活动类型：修改 `analyze_activity()` 函数中的分类
+- **开始** - 点击按钮
+- **暂停/继续** - 点击按钮
+- **停止** - 点击按钮
